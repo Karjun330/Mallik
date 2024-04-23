@@ -1,0 +1,77 @@
+{
+  "graphs": [
+    {
+      "graphId": "graph1",
+      "compositeRequest": [
+        {
+          "method": "POST",
+          "url": "/services/data/v53.0/sobjects/LocateInformation__c/",
+          "referenceId": "LocateInformation11",
+          "body": {
+            "LocateCounty__c": "",
+            "LocateCustomer__c": "Mallikarjun Chowdary",
+            "DateReceived__c": "2024-04-07T13:00:00",
+            "DateWorkToBegin__c": "2024-04-07T13:00:00",
+            "Explosives__c": "Y",
+            "ExternalID__c": "NE19357104584-G-ALBION_CS-BHEALBN-0-20220910-09",
+            "LocateIntersection__c": "RIDGE RD",
+            "KorterraZone__c": "TLRD",
+            "LocatePriority__c": "ROUTINE",
+            "LocateRange__c": "009W",
+            "LocateRange2__c": "010W",
+            "LocateSection__c": "04SW",
+            "LocateSection2__c": "05SW",
+            "MeetDate__c": "2024-04-07T13:00:00",
+            "OneCallPriority__c": "NORM NEW STRT LREQ",
+            "RequestedBy__c": "Mallikarjun Chowdary",
+            "TicketNumber__c": "NE19357104584-G-ALBION_CS-BHEALBN-0-20220910-09",
+            "Township__c": "42N",
+            "Township2__c": "43N",
+            "TypeOfWork__c": "FIBER MAIN NEW",
+            "LocateCoordinates__Latitude__s":"41.979187",
+            "LocateCoordinates__Longitude__s":"-98.083565"
+          }
+        },
+        {
+          "method": "POST",
+          "url": "/services/data/v53.0/sobjects/WorkOrder/",
+          "referenceId": "AB454545454858",
+          "body": {
+            "Status": "Open",
+            "WorkType": {"attributes": {"type": "WorkType", "url": "/services/data/v53.0/sobjects/WorkType"},"Name": "Gas Locate Emergency-Distribution" },
+            "Subject": "Gas Locate",
+            "Description": "FROM THE INTERSECTION OF 3RD ST AND BOWEN ST, TRAVEL WEST  APPX 1/4 BLOCK. MARK 50FT RADIUS OF ORANGE SAFETY CONES ON  THE NORTH SIDE OF THE ROAD.  CALLER LAT/LON: NAD: ZONE:  MAP NW LAT/LON: 41.9796042  -98.0845068    SE LAT/LON: 41.9787693 -98.0826241",
+            "ExternalID__c": "NE19357104584-G-ALBION_CS-BHEALBN-0-20220910-09",
+            "WorkDescription__c": "Line Locates",
+            "Street": "16465 Ridge Run Dr",
+            "City": "Monument Central",
+            "State": "CO",
+            "PostalCode": "",
+            "Country": "US",
+            "Longitude":"-104.69520126079568",
+            "Latitude":"39.07061702188589"
+          }
+        },
+        {
+          "method": "POST",
+          "url": "/services/data/v53.0/sobjects/ServiceAppointment/",
+          "referenceId": "ServiceAppointment",
+          "body": {
+            "ParentRecordId": "@{AB454545454858.id}",
+            "WorkInstructions__c": "FROM THE INTERSECTION OF 3RD ST AND BOWEN ST, TRAVEL WEST  APPX 1/4 BLOCK. MARK 50FT RADIUS OF ORANGE SAFETY CONES ON  THE NORTH SIDE OF THE ROAD.  CALLER LAT/LON: NAD: ZONE:  MAP NW LAT/LON: 41.9796042  -98.0845068    SE LAT/LON: 41.9787693 -98.0826241",
+            "WorkDescription__c": "Line Locates",
+            "Customer__c": "Mallikarjun Chowdary",
+            "HostSystem__c": "Korterra",
+            "ExternalID__c": "NE19357104584-G-ALBION_CS-BHEALBN-0-20220910-09",
+            "LocateInformationID__c": "@{LocateInformation11.id}",
+            "HostGeolocation__Latitude__s":"39.07061702188589",
+            "HostGeolocation__Longitude__s":"-104.69520126079568",
+            "Street": "16465 Ridge Run Dr",
+            "City": "Monument Central",
+            "State": "CO"
+          }
+        }
+      ]
+    }
+  ]
+}
