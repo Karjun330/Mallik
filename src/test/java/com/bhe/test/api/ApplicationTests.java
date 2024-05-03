@@ -4,6 +4,7 @@ import com.bhe.config.APIConfig;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.openqa.selenium.JavascriptExecutor;
+import java.util.concurrent.TimeUnit;
 
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -39,7 +40,9 @@ public class ApplicationTests {
     URL url;
     WebDriver driver = null;
     IOSDriver mobileDriver = null;
-    String serviceTicketId = "NE19357104732-G-ALBION_CS-BHEALBN-0-20220910-09";
+    String serviceTicketId = "NE19357104825-G-ALBION_CS-BHEALBN-0-20220910-09";
+    String completedstatus = "Completed";
+    //String serviceNumber = driver.findElement(By.xpath("//*[@class='SingleTask DraggableSingleTask']/div[@class='SingleTaskColumn truncate Field-STRING'][1]")).getText();
     String dateToday = "2024-04-22";
    String jsonObject = "{\n" +
           "  \"graphs\": [\n" +
@@ -173,9 +176,16 @@ public class ApplicationTests {
         System.out.println("Clicked Minimize");
         wait.until(d -> driver.findElement(By.xpath("//a[@title='Field Service']")).isDisplayed());
         driver.findElement(By.xpath("//a[@title='Field Service']")).click();
+        wait.withTimeout(Duration.ofSeconds(60));
        System.out.println("Clicked Field Service");
 
+
+       //wait.until(d ->driver.findElement(By.xpath("//button[@aria-label='Search']"))).isDisplayed();
+
+
+
         driver.switchTo().frame(0);
+
         wait.until(d -> driver.findElement(By.xpath("//*[@id='TaskSearchFilterInput']")).isDisplayed());
         driver.findElement(By.xpath("//*[@id='TaskSearchFilterInput']")).sendKeys(serviceTicketId);
         //driver.findElement(By.xpath("//*[@data-key='search']")).sendKeys(serviceTicketId);
@@ -203,6 +213,21 @@ public class ApplicationTests {
        driver.findElement(By.xpath("//button[@aria-label='Search']")).click();
         driver.findElement(By.xpath("//*[@placeholder='Search...']")).sendKeys(serviceTicketId);
 
+        wait.until(d ->driver.findElement(By.xpath("//span[@part='formatted-rich-text'][contains(text(),'G-ALBION_CS-BHEALBN-0-20220910-09')]")).isDisplayed());
+        driver.findElement(By.xpath("//span[@part='formatted-rich-text'][contains(text(),'G-ALBION_CS-BHEALBN-0-20220910-09')]")).click();
+        wait.until(d ->driver.findElement(By.xpath("//a[contains(text(),'SA-')]")).isDisplayed());
+        driver.findElement(By.xpath("//a[contains(text(),'SA-')]")).click();
+        wait.until(d ->driver.findElement(By.xpath("//span[contains(text(),'Edit Status')]/parent::*")).isDisplayed());
+        driver.findElement(By.xpath("//span[contains(text(),'Edit Status')]/parent::*")).click();
+        wait.until(d ->driver.findElement(By.xpath("//a[contains(text(),'Scheduled')]")).isDisplayed());
+        driver.findElement(By.xpath("//a[contains(text(),'Scheduled')]")).click();
+        wait.until(d ->driver.findElement(By.xpath("//a[contains(text(),'Dispatched')]")).isDisplayed());
+        driver.findElement(By.xpath("//a[contains(text(),'Dispatched')]")).click();
+        driver.findElement(By.xpath("//*[@title='Save']")).click();
+        driver.quit();
+
+
+
 
      //   wait.until(d -> driver.findElement(By.xpath("//*[@class='serviceNumber']")).isDisplayed());
 
@@ -218,11 +243,14 @@ public class ApplicationTests {
        capabilities.setCapability("platformName", "iOS");
        capabilities.setCapability("useNewWDA", true);
    capabilities.setCapability("appium:noReset", true);
+   capabilities.setCapability("USE_PREBUILT_WDA", false);
      capabilities.setCapability("appium:platformVersion", "16.2");
-      capabilities.setCapability("appium:deviceName", "iPad Pro (12.9-inch)");
+      //capabilities.setCapability("appium:deviceName", "iPad Pro (12.9-inch)");
     capabilities.setCapability("appium:automationName", "XCUITest");
       capabilities.setCapability("appium:udid", "BCC1CA64-03FD-421F-865C-ADB1F70EEB1C");
      capabilities.setCapability("appium:app", "/Users/miipe/Desktop/Appium Inspector/FieldServiceApp-Simulator-248.0.47-iOS.zip");
+     capabilities.setCapability("appium:newCommandTimeout", "50000");
+
      mobileDriver = new IOSDriver(url, capabilities);
 
 
@@ -269,9 +297,14 @@ public class ApplicationTests {
 //        mobileDriver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Enable Camera Access']")).click();
 //        mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='OK']")).click();
 
-        mobileDriver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        mobileDriver.findElement(By.xpath("//XCUIElementTypeSecureTextField[@name='Passcode field']")).sendKeys("miipe" + "\n");
+        mobileDriver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+       // mobileDriver.findElement(By.xpath("//XCUIElementTypeSecureTextField[@name='Passcode field']")).sendKeys("miipe" + "\n");
        // mobileDriver.findElement(By.xpath("//XCUIElementTypeImage[@name='LightningDesignSystem.sldsIcon.utility/notification']")).click();
+        mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='NavRail.view' and @label='Profile']")).click();
+        mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='DataSyncPrimingCell.syncButton']")).click();
+        mobileDriver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='NavRail.view' and @label='Schedule']")).click();
+        mobileDriver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         mobileDriver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='ScheduleListItemView.addressLabel']")).click();
         mobileDriver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='ActionBarHeaderView.headerTitleLabel']")).click();
         mobileDriver.findElement(By.xpath("(//XCUIElementTypeCell[@name='ActionBarCell'])[1]")).click();
@@ -295,6 +328,25 @@ public class ApplicationTests {
         mobileDriver.findElement(By.xpath("//XCUIElementTypeTextView")).sendKeys("Done");
         mobileDriver.findElement(By.xpath("//XCUIElementTypeOther[@name='Horizontal scroll bar, 1 page']")).click();
         mobileDriver.findElement(By.xpath("//XCUIElementTypeOther[@name='Next']")).click();
+        mobileDriver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        //mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='Today's Service Appointments']")).click();
+        mobileDriver.findElement(By.xpath("(//XCUIElementTypeButton[@name='appointment.actions'])[1]")).click();
+        mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='View Detail']")).click();
+        mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='NavRail.view' and @label='Profile']")).click();
+        mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='DataSyncPrimingCell.syncButton']")).click();
+        mobileDriver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='NavRail.view' and @label='Schedule']")).click();
+        mobileDriver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+
+
+
+        //XCUIElementTypeButton[@name="NavRail.view" and @label="Profile"]
+        //XCUIElementTypeButton[@name="DataSyncPrimingCell.syncButton"]
+        //XCUIElementTypeButton[@name="NavRail.view" and @label="Schedule"]
+        //XCUIElementTypeButton[@name="Today's Service Appointments"]
+        //XCUIElementTypeButton[@name="appointment.actions"])[2]
+        //XCUIElementTypeButton[@name="View Detail"]
+        //XCUIElementTypeButton[@name="appointment.actions"])[1]
 
 
 
@@ -318,24 +370,38 @@ public class ApplicationTests {
 
 
 
-//    public void  CompletedServiceJob ()
-//
-//    {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-//        wait.until(d -> driver.findElement(By.xpath("//*[@title='Minimize']")).isDisplayed());
-//        driver.findElement(By.xpath("//*[@title='Minimize']")).click();
-//        System.out.println("Clicked Minimize");
-//        wait.until(d -> driver.findElement(By.xpath("//a[@title='Field Service']")).isDisplayed());
-//        driver.findElement(By.xpath("//a[@title='Field Service']")).click();
-//        System.out.println("Clicked Field Service");
+    public void  CompletedServiceJob ()
+
+    {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        wait.until(d -> driver.findElement(By.xpath("//*[@title='Minimize']")).isDisplayed());
+        driver.findElement(By.xpath("//*[@title='Minimize']")).click();
+        System.out.println("Clicked Minimize");
+        wait.until(d -> driver.findElement(By.xpath("//a[@title='Field Service']")).isDisplayed());
+        driver.findElement(By.xpath("//a[@title='Field Service']")).click();
+        System.out.println("Clicked Field Service");
+        driver.findElement(By.xpath("//button[@aria-label='Search']")).click();
+        driver.findElement(By.xpath("//*[@placeholder='Search...']")).sendKeys(serviceTicketId);
+
+        wait.until(d ->driver.findElement(By.xpath("//span[@part='formatted-rich-text'][contains(text(),'G-ALBION_CS-BHEALBN-0-20220910-09')]")).isDisplayed());
+        driver.findElement(By.xpath("//span[@part='formatted-rich-text'][contains(text(),'G-ALBION_CS-BHEALBN-0-20220910-09')]")).click();
+        wait.until(d ->driver.findElement(By.xpath("//a[contains(text(),'SA-')]")).isDisplayed());
+        driver.findElement(By.xpath("//a[contains(text(),'SA-')]")).click();
+        wait.until(d ->driver.findElement(By.xpath("//span[contains(text(),'Edit Status')]/parent::*/preceding-sibling::span/span"))).isDisplayed();
+        String Status= driver.findElement(By.xpath("//span[contains(text(),'Edit Status')]/parent::*/preceding-sibling::span/span")).getText();
+        assert Status.equals(completedstatus);
+        driver.quit();
+
+
 //        driver.switchTo().frame(0);
 //        //wait.until(d -> driver.findElement(By.xpath("//*[@id='TaskSearchFilterInput']")).isDisplayed());
 //       // driver.findElement(By.xpath("//*[@id='TaskSearchFilterInput']")).sendKeys(serviceTicketId);
 //        wait.until(d ->driver.findElement(By.xpath("//*[@placeholder='Search resources']")).isDisplayed());
 //        driver.findElement(By.xpath("//*[@placeholder='Search resources']")).sendKeys("Daniel");
+//        driver.quit();
 //        //wait.until(d ->driver.findElement(By.xpath("//*[@title='Daniel Silva']")).isDisplayed());
-//
-//    }
+
+    }
 
 
 

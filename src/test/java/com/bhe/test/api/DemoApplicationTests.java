@@ -1,23 +1,25 @@
 package com.bhe.test.api;
+import org.aspectj.lang.annotation.After;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 
 
 public class DemoApplicationTests extends ApplicationTests {
-//
-//       // @Test
+
+//        @Test
 //        public void apiCalls() {
 //            // openWorkspace();
 //            System.out.println("Launching first API call");
 //            //First API Call
 //            postOAuth();
 //            System.out.println("Launching Second API call");
-//            //Second API Call
+//           //Second API Call
 //            locateCopy();
 //        }
 
-//    //    @Test
+//        @Test
 //       public void salesforceWeb() throws InterruptedException {
 //            login();
 //            verifyServiceAppointStatus();
@@ -29,12 +31,11 @@ public class DemoApplicationTests extends ApplicationTests {
             simulatorTest();
         }
 
-//       // @Test
-//        public void VerifyCompletedJob()
-//        {
-//            login();
-//           // CompletedServiceJob();
-//      }
+//       @AfterTest
+//        public void VerifyCompletedJob() {
+//          login();
+//           CompletedServiceJob();
+//     }
 
 
     }
