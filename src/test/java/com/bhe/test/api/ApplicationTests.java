@@ -241,9 +241,9 @@ public class ApplicationTests {
         url = new URL(URL_STRING);
         DesiredCapabilities capabilities = new DesiredCapabilities();
        capabilities.setCapability("platformName", "iOS");
-       capabilities.setCapability("useNewWDA", true);
+       capabilities.setCapability("useNewWDA", false);
    capabilities.setCapability("appium:noReset", true);
-   capabilities.setCapability("USE_PREBUILT_WDA", false);
+   capabilities.setCapability("USE_PREBUILT_WDA", true);
      capabilities.setCapability("appium:platformVersion", "16.2");
       //capabilities.setCapability("appium:deviceName", "iPad Pro (12.9-inch)");
     capabilities.setCapability("appium:automationName", "XCUITest");
@@ -301,6 +301,8 @@ public class ApplicationTests {
        // mobileDriver.findElement(By.xpath("//XCUIElementTypeSecureTextField[@name='Passcode field']")).sendKeys("miipe" + "\n");
        // mobileDriver.findElement(By.xpath("//XCUIElementTypeImage[@name='LightningDesignSystem.sldsIcon.utility/notification']")).click();
         mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='NavRail.view' and @label='Profile']")).click();
+        mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='profile.settings']")).click();
+        mobileDriver.findElement(By.xpath("//XCUIElementTypeStaticText[@name=\"Data Sync\"]")).click();
         mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='DataSyncPrimingCell.syncButton']")).click();
         mobileDriver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='NavRail.view' and @label='Schedule']")).click();
@@ -347,6 +349,8 @@ public class ApplicationTests {
         //XCUIElementTypeButton[@name="appointment.actions"])[2]
         //XCUIElementTypeButton[@name="View Detail"]
         //XCUIElementTypeButton[@name="appointment.actions"])[1]
+        //XCUIElementTypeButton[@name="profile.settings"]
+        //XCUIElementTypeStaticText[@name="Data Sync"]
 
 
 
