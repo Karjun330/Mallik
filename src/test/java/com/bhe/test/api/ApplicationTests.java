@@ -302,7 +302,7 @@ public class ApplicationTests {
        // mobileDriver.findElement(By.xpath("//XCUIElementTypeImage[@name='LightningDesignSystem.sldsIcon.utility/notification']")).click();
         mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='NavRail.view' and @label='Profile']")).click();
         mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='profile.settings']")).click();
-        mobileDriver.findElement(By.xpath("//XCUIElementTypeStaticText[@name=\"Data Sync\"]")).click();
+        mobileDriver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Data Sync']")).click();
         mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='DataSyncPrimingCell.syncButton']")).click();
         mobileDriver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         mobileDriver.findElement(By.xpath("//XCUIElementTypeButton[@name='NavRail.view' and @label='Schedule']")).click();
